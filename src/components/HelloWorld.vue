@@ -1,14 +1,19 @@
 <template>
   <Table :columns="columns10" border :data="data9" ></Table>
+
 </template>
 
 <script>
   import expandRow from './table-expand.vue';
+
 export default {
   components: { expandRow },
   name: 'HelloWorld',
   data () {
     return {
+      isShow:false,
+      loading:false,
+      delIndex:0,
       columns10: [
         {
           align:'center',
@@ -65,7 +70,7 @@ export default {
                     this.click2()
                   }
                 }
-              }, 'View'),
+              }, '新增'),
               h('Button', {
                 props: {
                   type: 'error',
@@ -73,10 +78,23 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.data9.splice(params.index,1)
+//                    this.isShow=true
+                    this.$Modal.confirm({
+                      title:'确认删除吗？',
+                      content:'删除子集也会被一并删除，请小心操作!',
+                      closable:true,
+                      onOk:()=>{
+                        this.data9.splice(params.index,1)
+                        this.$Message.success('确认删除成功！');
+                      },
+                      onCancel:()=>{
+                        this.$Modal.remove()
+                      }
+                    })
+
                   }
                 }
-              }, 'Delete')
+              }, '删除')
             ]);
           }
         }
@@ -164,7 +182,7 @@ export default {
   methods:{
     click2(){
       console.log(333);
-    }
+    },
   }
 }
 </script>

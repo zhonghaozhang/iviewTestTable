@@ -78,7 +78,18 @@
                   },
                   on: {
                     click: () => {
-                      this.data.splice(params.index,1)
+                      this.$Modal.confirm({
+                        title:'确认删除吗？',
+                        content:'删除子集也会被一并删除，请小心操作!',
+                        closable:true,
+                        onOk:()=>{
+                          this.data.splice(params.index,1)
+                          this.$Message.success('确认删除成功！');
+                        },
+                        onCancel:()=>{
+                          this.$Modal.remove()
+                        }
+                      })
                     }
                   }
                 }, 'Delete')
