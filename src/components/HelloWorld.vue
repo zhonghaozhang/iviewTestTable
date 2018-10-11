@@ -60,7 +60,8 @@ export default {
               h('Button', {
                 props: {
                   type: 'primary',
-                  size: 'small'
+                  size: 'small',
+                  icon:"ios-search"
                 },
                 style: {
                   marginRight: '5px'
